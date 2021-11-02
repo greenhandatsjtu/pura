@@ -19,7 +19,7 @@ use crate::core::{
 };
 use crate::oci::spec::Namespace;
 
-use clap::{App, Arg, SubCommand};
+use clap::{App, Arg, SubCommand, AppSettings};
 use log::{error, warn, Level};
 use nix::errno::Errno;
 use nix::sys::wait::{waitpid, WaitPidFlag, WaitStatus};
@@ -313,6 +313,7 @@ pub fn main() {
         .version("0.1.0")
         .author("penumbra23 <glbranimir@gmail.com>")
         .about("Lightweight, Rust-based and OCI-compliant container runtime")
+        .setting(AppSettings::ArgRequiredElseHelp)
         .arg(
             Arg::with_name("root")
                 .long("root")

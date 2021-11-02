@@ -31,7 +31,7 @@ impl std::error::Error for Error {}
 
 pub type Result<T> = std::result::Result<T, Error>;
 
-// hepler methods
+// helper methods
 
 pub fn exit(code: i32) -> ! {
     std::process::exit(code);
