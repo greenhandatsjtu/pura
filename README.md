@@ -22,6 +22,8 @@ The goal of **Pura** was to learn how container runtimes work and how container 
 - Ubuntu 18.04 & 20.04
 - OpenSUSE 15
 
+**Pura** is the codebase for [Container Runtime in Rust](https://itnext.io/container-runtime-in-rust-part-0-7af709415cda), a 3 part series on container runtimes in general, Linux features that CRs use and some implementation details explained.
+
 ## Build
 
 Prerequisites:
@@ -42,13 +44,15 @@ cargo build --release
 
 **Pura** can be used as a standalone container runtime like **runc** with the OCI compliant commands:
 
-```
+```sh
 cd target/release
-./pura create id123456789 --bundle /path/to/bundle
-./pura start id123456789
-./pura state id123456789
-./pura delete id123456789
+./pura create example --bundle /path/to/bundle
+./pura start example
+./pura state example
+./pura delete example
 ```
+
+If you encounter some error to run pura from build check the NOTES.md
 
 or it can be integrated with Docker:
 ```bash
@@ -58,8 +62,11 @@ sudo service docker stop
 # systemd-based
 sudo systemctl stop docker
 
+# try to use this
+[Rootless mode](https://docs.docker.com/engine/security/rootless/)
+
 # run dockerd manually
-sudo dockerd -H unix:///var/run/docker.sock --runtime pura=/pura-repo/target/release/pura
+[sudo] dockerd -H unix:///var/run/docker.sock --add-runtime pura=/pura-repo/target/release/pura
 
 docker run -it --runtime pura alpine /bin/sh
 / # cat /etc/os-release
